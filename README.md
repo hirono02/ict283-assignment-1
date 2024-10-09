@@ -8,5 +8,15 @@ This program is designed to processe meteorological data from a specified CSV fi
 - Calculates and displays the total solar radiation for each month in a given year
 - Exports the wind speed, temperature, and solar radiation data to a CSV file
 
+### Running the program
+To run the program:
 
+1. Compile the source code: 
+```
+g++ Date.cpp DateTest.cpp DataProcessor.cpp Time.cpp TimeTest.cpp VectorTest.cpp main.cpp
+```
+2. Execute the program:
+```
+./a.out  
+```
 
