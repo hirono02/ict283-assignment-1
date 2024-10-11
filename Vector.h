@@ -16,7 +16,7 @@ private:
     T* arr;          ///< Pointer to the dynamic array
     int capacity;    ///< The total capacity of the vector
     int size;        ///< The current number of elements in the vector
-
+    
     /**
      * @brief Resizes the internal array when it is full.
      */
@@ -68,13 +68,17 @@ public:
 
 template <typename T>
 Vector<T>::Vector(int initialCapacity) {
+    // set initial capacity
     capacity = initialCapacity;
     size = 0;
+    // allocate memory
     arr = new T[capacity];
 }
 
 template <typename T>
 Vector<T>::~Vector() {
+    // deallocate memory
+    // std::cout << "Destructor called" << std::endl;
     delete[] arr;
 }
 
@@ -91,20 +95,25 @@ void Vector<T>::resize() {
 
 template <typename T>
 void Vector<T>::push_back(const T& value) {
+    // check if vector capacity has been reached. if so, we will double the size of the vector
     if (size == capacity) {
         resize();
     }
+    // add the value to the end of the vector
     arr[size++] = value;
 }
 
 template <typename T>
+// overload [] to allow us to access elements by index
 T& Vector<T>::operator[](int index) {
+    // check if index out of bounds
     if (index < 0 || index >= size) {
         throw std::out_of_range("Index out of range");
     }
     return arr[index];
 }
 
+/** READ ONLY ACCESS */
 template <typename T>
 const T& Vector<T>::operator[](int index) const {
     if (index < 0 || index >= size) {

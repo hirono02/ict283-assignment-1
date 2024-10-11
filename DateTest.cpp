@@ -30,6 +30,11 @@ int DateTest() {
     return 0;
 }
 
+int main() {
+    DateTest();
+    return 0;
+}
+
 void DateTest1() {
     // Test default constructor and getter methods
     Date defaultDate;

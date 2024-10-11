@@ -20,3 +20,23 @@ g++ Date.cpp DateTest.cpp DataProcessor.cpp Time.cpp TimeTest.cpp VectorTest.cpp
 ./a.out  
 ```
 
+### Running tests on the program
+In this project, you will notice that there are test files for the following classes:
+- **DateTest.cpp** (Test file for Date class)
+- **TimeTest.cpp** (Test file for Time class)
+- **VectorTest.cpp** (Test file for Vector class)
+- **DataProcessorTest.cpp** (Test file for DataProcessor class)
+
+To run the tests:
+1. Compile the test files (I am using the Vector template class as an example):
+```
+g++ VectorTest.cpp -o VectorTest
+```
+2. Run the compiled VectorTest executable:
+```
+./VectorTest
+```
+
+*The output of runing the tests would show what we are testing for and the actual result. This allows us to verify our code is working as expected. The expected output are commented out within the actual code itself.*
+
+

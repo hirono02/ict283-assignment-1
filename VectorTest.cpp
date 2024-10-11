@@ -11,6 +11,7 @@ void Test3(); // Test Vector element access
 void Test4(); // Test Vector boundary conditions
 void Test5(); // Test Vector size reporting
 
+
 int VectorTest() {
     std::cout << "Vector Test Program" << std::endl << std::endl;
 
@@ -21,6 +22,10 @@ int VectorTest() {
     Test5();
 
     std::cout << std::endl;
+    return 0;
+}
+int main() {
+    VectorTest();
     return 0;
 }
 

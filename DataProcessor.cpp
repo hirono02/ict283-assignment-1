@@ -1,5 +1,5 @@
 #include "DataProcessor.h"
-#include <cstdlib>  // For strtol and strtof
+#include <cstdlib>
 
 void DataProcessor::loadData(const std::string& filename, Vector<Data>& data) {
     std::ifstream file(filename);
@@ -10,7 +10,7 @@ void DataProcessor::loadData(const std::string& filename, Vector<Data>& data) {
 
     std::string line;
 
-    // Skip the header row
+    // skip the header row
     std::getline(file, line);
     
     while (std::getline(file, line)) {
@@ -21,38 +21,40 @@ void DataProcessor::loadData(const std::string& filename, Vector<Data>& data) {
         Time time;
         float windSpeed = 0, temperature = 0, solarRadiation = 0;
 
-        // Parse the Date and Time (they are separated by space)
-        std::getline(ss, token, ',');  // Read the full date and time token, e.g. "2/03/2014 17:20"
+        // read full date and time: "dd/mm/yyyy hh:mm"
+        std::getline(ss, token, ',');  
         
-        // Find the space that separates the date and time
+        // date and time are separated by a space, we will find it to determine the date and time
         std::size_t spacePos = token.find(' ');
         if (spacePos == std::string::npos) {
             std::cerr << "Error: Invalid date-time format in CSV: " << token << std::endl;
             continue;
         }
 
+        /** extract date and time */
+        // expected format: "dd/mm/yyyy hh:mm"
         std::string dateStr = token.substr(0, spacePos);  // Extract date part, e.g. "2/03/2014"
         std::string timeStr = token.substr(spacePos + 1); // Extract time part, e.g. "17:20"
 
-        // Parse the Date (assuming format DD/MM/YYYY)
+        // parse the date (DD/MM/YYYY)
         const char* dateCStr = dateStr.c_str();
         char* endPtr;
 
-        // Convert day
+        // convert day
         int day = std::strtol(dateCStr, &endPtr, 10);
         if (*endPtr != '/' || day < 1 || day > 31) {
             std::cerr << "Error: Invalid day in CSV: " << dateStr << std::endl;
             continue;
         }
 
-        // Convert month
+        // convert month
         int month = std::strtol(endPtr + 1, &endPtr, 10);
         if (*endPtr != '/' || month < 1 || month > 12) {
             std::cerr << "Error: Invalid month in CSV: " << dateStr << std::endl;
             continue;
         }
 
-        // Convert year
+        // convert year
         int year = std::strtol(endPtr + 1, &endPtr, 10);
         if (year < 0) {
             std::cerr << "Error: Invalid year in CSV: " << dateStr << std::endl;
@@ -63,18 +65,18 @@ void DataProcessor::loadData(const std::string& filename, Vector<Data>& data) {
         date.setMonth(month);
         date.setDay(day);
 
-        // Parse the Time (handle both H:MM and HH:MM formats)
+        // parse time 
         const char* timeCStr = timeStr.c_str();
         char* timeEndPtr;
 
-        // Convert hour
+        // convert hour
         int hour = std::strtol(timeCStr, &timeEndPtr, 10);
         if (*timeEndPtr != ':' || hour < 0 || hour > 23) {
             std::cerr << "Error: Invalid hour in CSV: " << timeStr << std::endl;
             continue;
         }
 
-        // Convert minute
+        // convert minute
         int minute = std::strtol(timeEndPtr + 1, &timeEndPtr, 10);
         if (*timeEndPtr != '\0' && *timeEndPtr != ' ') {
             std::cerr << "Error: Invalid minute in CSV: " << timeStr << std::endl;
@@ -83,7 +85,7 @@ void DataProcessor::loadData(const std::string& filename, Vector<Data>& data) {
 
         time.setTime(hour, minute, 0);
 
-        // Parse Wind Speed (in m/s, convert to km/h)
+        // parse and convert wind speed to km/h
         std::getline(ss, token, ',');
         windSpeed = convertWindSpeed(std::strtof(token.c_str(), &endPtr));
         if (*endPtr != '\0' && *endPtr != ' ') {
@@ -91,7 +93,7 @@ void DataProcessor::loadData(const std::string& filename, Vector<Data>& data) {
             continue;
         }
 
-        // Parse Temperature (in Celsius)
+        // parse temp to celcius
         std::getline(ss, token, ',');
         temperature = std::strtof(token.c_str(), &endPtr);
         if (*endPtr != '\0' && *endPtr != ' ') {
@@ -99,7 +101,7 @@ void DataProcessor::loadData(const std::string& filename, Vector<Data>& data) {
             continue;
         }
 
-        // Parse Solar Radiation (in W/m², convert to kWh/m²)
+        // parse and convert solar radiation to kWh/m^2
         std::getline(ss, token, ',');
         solarRadiation = convertSolarRadiation(std::strtof(token.c_str(), &endPtr));
         if (*endPtr != '\0' && *endPtr != ' ') {
