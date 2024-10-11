@@ -1,7 +1,7 @@
 # Assignment 1 for ICT283 Data Structures & Abstractions
 
 ### Summary
-This program is designed to processe meteorological data from a specified CSV file, analyzing date, time, wind speed, temperature, and solar radiation readings. This program does the following:
+This program is designed to process meteorological data from a specified CSV file, analyzing date, time, wind speed, temperature, and solar radiation readings. This program does the following:
 - Loads meteorological data from CSV file
 - Calculates and displays average wind speeds and the standard deviation of wind speeds
 - Calculates and displays average temperature and the standard deviation of temperatures
@@ -25,7 +25,6 @@ In this project, you will notice that there are test files for the following cla
 - **DateTest.cpp** (Test file for Date class)
 - **TimeTest.cpp** (Test file for Time class)
 - **VectorTest.cpp** (Test file for Vector class)
-- **DataProcessorTest.cpp** (Test file for DataProcessor class)
 
 To run the tests:
 1. Compile the test files (I am using the Vector template class as an example):
